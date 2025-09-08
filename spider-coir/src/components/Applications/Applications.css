@@ -1,0 +1,42 @@
+.applications {
+    padding: 4rem 2rem;
+    background-color: #f4f4f4;
+    text-align: center;
+}
+
+.applications h2 {
+    font-size: 2.5rem;
+    margin-bottom: 2rem;
+    color: #1b5e20;
+}
+
+.application-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 2rem;
+    text-align: left;
+}
+
+.application-item {
+    background-color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+}
+
+.application-item h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+}
+
+@media (max-width: 1024px) {
+  .applications-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .applications-grid {
+    grid-template-columns: 1fr;
+  }
+}

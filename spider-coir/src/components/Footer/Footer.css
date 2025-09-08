@@ -1,0 +1,98 @@
+.footer {
+    background: #1b5e20;
+    color: #d3d3d3;
+    position: relative;
+}
+
+.footer .footer-content {
+    display: flex;
+    flex-wrap: wrap;
+    padding: 3rem 2rem;
+    justify-content: space-between;
+}
+
+.footer .footer-section {
+    flex: 1;
+    padding: 1rem;
+    min-width: 250px;
+}
+
+.footer .footer-section h1,
+.footer .footer-section h2 {
+    color: white;
+}
+
+.footer .footer-section .logo-text span {
+    color: #4caf50;
+}
+
+.footer .footer-section .contact-input {
+    background: #2c6b2f;
+    color: #d3d3d3;
+    margin-bottom: 10px;
+    line-height: 1.5rem;
+    padding: .7rem 1.2rem;
+    border: none;
+    width: 100%;
+}
+
+.footer .footer-section .btn-primary {
+    background: #4caf50;
+    color: white;
+    border: none;
+    padding: .5rem 1rem;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.footer .footer-section .btn-primary:hover {
+    background: #43a047;
+}
+
+
+.footer .footer-section.links ul a {
+    display: block;
+    margin-bottom: 10px;
+    font-size: 1.2em;
+    color: #d3d3d3;
+    text-decoration: none;
+    transition: all .3s;
+}
+
+.footer .footer-section.links ul a:hover {
+    color: white;
+    margin-left: 15px;
+    transition: all .3s;
+}
+
+.footer .footer-bottom {
+    background: #113e14;
+    color: #686868;
+    height: 50px;
+    width: 100%;
+    text-align: center;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    padding-top: 20px;
+}
+
+.footer {
+    padding-bottom: 50px; /* Add padding to prevent content from being hidden by the absolute positioned footer-bottom */
+}
+
+@media (max-width: 768px) {
+  .footer-content {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .footer-section {
+    margin-bottom: 2rem;
+  }
+
+  .footer-bottom {
+    flex-direction: column;
+  }
+}

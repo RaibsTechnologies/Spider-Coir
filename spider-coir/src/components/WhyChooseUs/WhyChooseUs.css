@@ -1,0 +1,35 @@
+.why-choose-us {
+  padding: 4rem 2rem;
+  text-align: center;
+}
+
+.why-choose-us h2 {
+  font-size: 2.5rem;
+  margin-bottom: 2rem;
+  color: #1b5e20;
+}
+
+.why-choose-us .content {
+  display: flex;
+  gap: 2rem;
+  text-align: left;
+}
+
+.why-choose-us .text-column {
+  flex: 1;
+}
+
+.why-choose-us p {
+    line-height: 1.6;
+}
+
+@media (max-width: 768px) {
+  .wcu-content {
+    flex-direction: column;
+  }
+
+  .wcu-column {
+    max-width: 100%;
+    margin-bottom: 2rem;
+  }
+}

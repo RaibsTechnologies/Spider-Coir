@@ -1,0 +1,52 @@
+.process {
+    padding: 4rem 2rem;
+    text-align: center;
+}
+
+.process h2 {
+    font-size: 2.5rem;
+    margin-bottom: 3rem;
+    color: #1b5e20;
+}
+
+.process-steps {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    gap: 2rem;
+}
+
+.step {
+    max-width: 250px;
+    text-align: center;
+}
+
+.step-number {
+    width: 50px;
+    height: 50px;
+    background-color: #1b5e20;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    margin: 0 auto 1rem;
+}
+
+.step h3 {
+    font-size: 1.5rem;
+    margin-bottom: 0.5rem;
+}
+
+@media (max-width: 768px) {
+  .process-steps {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .process-step {
+    max-width: 100%;
+    margin-bottom: 2rem;
+  }
+}
