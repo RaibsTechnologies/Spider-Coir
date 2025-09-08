@@ -1,86 +1,198 @@
-.header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 2rem;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  position: sticky;
-  top: 0;
+/* Root spacing so content doesn't hide behind floating bar */
+:root {
+  --header-height: 64px;
+  --header-padding-x: 16px;
+  --header-radius: 16px;
+  --header-bg: rgba(255, 255, 255, 0.6); /* light mode glass */
+  --header-border: rgba(255, 255, 255, 0.5);
+  --text-color: #222;
+  --accent: #1b5e20;
+  --shadow: 0 8px 24px rgba(0,0,0,0.12);
+  --blur: 12px;
+}
+
+/* Optional dark mode variables */
+@media (prefers-color-scheme: dark) {
+  :root {
+    --header-bg: rgba(20, 20, 20, 0.5);
+    --header-border: rgba(255, 255, 255, 0.08);
+    --text-color: #eaeaea;
+    --shadow: 0 8px 24px rgba(0,0,0,0.4);
+  }
+}
+
+/* Floating wrapper: fixed, centered, with safe insets */
+.header-wrap {
+  position: fixed;
+  top: 16px;
+  left: max(16px, env(safe-area-inset-left));
+  right: max(16px, env(safe-area-inset-right));
   z-index: 1000;
+  display: block;
 }
 
-.logo {
-  font-size: 1.5rem;
-  font-weight: bold;
-  color: #1b5e20;
-}
-
-.header-nav ul, .header-nav-list {
-  list-style: none;
+/* Floating pill container with glassmorphism */
+.header {
+  width: 100%;
   display: flex;
-  gap: 1.5rem;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+  padding: 0 clamp(12px, 2vw, 20px);
+  background: var(--header-bg);
+  backdrop-filter: blur(var(--blur));
+  -webkit-backdrop-filter: blur(var(--blur)); /* Safari */
+  border: 1px solid var(--header-border);
+  border-radius: var(--header-radius);
+  box-shadow: var(--shadow);
+  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1),
+              opacity 0.35s ease,
+              padding 0.35s ease,
+              border-radius 0.35s ease;
+  transform-origin: center top; /* shrink towards top */
+  will-change: transform, opacity; /* performance hint */
+}
+.header.shrink {
+  transform: scale(0.92);   /* smooth scale */
+  opacity: 0.9;             /* slight fade */
+  border-radius: 12px;
+  padding: 0 clamp(6px, 1vw, 12px);
+}
+
+/* Logo smoothly scales */
+.logo {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--accent);
+  line-height: 1;
+  display: flex;
+  align-items: center;
+  transition: font-size 0.35s ease, transform 0.35s ease;
+}
+.header.shrink .logo {
+  font-size: 1rem;
+  transform: translateY(-1px); /* keep centered visually */
+}
+
+/* Wrapper so width shrinks smoothly */
+.header-wrap {
+  position: fixed;
+  top: 16px;
+  left: max(16px, env(safe-area-inset-left));
+  right: max(16px, env(safe-area-inset-right));
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  transition: max-width 0.35s ease;
+}
+
+.header-wrap.shrink {
+  max-width: 85%;  /* shrink width */
+  margin: 0 auto;
+}
+
+/* Desktop nav */
+.header-nav,
+.header-nav-list {
+  display: flex;
+  gap: clamp(12px, 2.2vw, 28px);
+  align-items: center;
+  list-style: none;
   margin: 0;
   padding: 0;
 }
 
 .header-nav a {
   text-decoration: none;
-  color: #333;
+  color: var(--text-color);
   font-weight: 500;
-  transition: color 0.3s ease;
+  line-height: 1;
+  padding: 10px 6px;
+  border-radius: 8px;
+  transition: color .2s ease, background-color .2s ease, opacity .2s ease;
 }
-
 .header-nav a:hover {
-  color: #1b5e20;
+  color: var(--accent);
+  background: rgba(27, 94, 32, 0.08);
 }
 
+/* Hamburger */
 .hamburger {
   display: none;
   cursor: pointer;
   background: transparent;
   border: none;
-  padding: 0;
+  padding: 8px;
+  border-radius: 8px;
 }
-
+.hamburger:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
 .hamburger .bar {
   display: block;
-  width: 25px;
-  height: 3px;
-  margin: 5px auto;
-  background-color: #333;
-  transition: all 0.3s ease-in-out;
+  width: 24px;
+  height: 2px;
+  margin: 5px 0;
+  background-color: var(--text-color);
+  transition: transform .25s ease, opacity .25s ease;
+}
+/* Animate to X when open */
+.hamburger.open .bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.hamburger.open .bar:nth-child(2) {
+  opacity: 0;
+}
+.hamburger.open .bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
 }
 
-@media (max-width: 768px) {
-  .header-nav {
-    display: none;
-    position: absolute;
-    top: 60px; /* Adjust based on header height */
-    left: 0;
-    right: 0;
-    background-color: #fff;
-    width: 100%;
-    flex-direction: column;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  }
+/* Mobile panel under the floating header */
+.mobile-panel {
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: calc(var(--header-height) + 8px);
+  display: none;
+  background: var(--header-bg);
+  backdrop-filter: blur(var(--blur));
+  -webkit-backdrop-filter: blur(var(--blur));
+  border: 1px solid var(--header-border);
+  border-radius: 12px;
+  box-shadow: var(--shadow);
+  overflow: hidden;
+}
+.mobile-panel.show {
+  display: block;
+}
+.mobile-list {
+  list-style: none;
+  margin: 0;
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+.mobile-list a {
+  display: block;
+  padding: 14px 12px;
+  color: var(--text-color);
+  text-decoration: none;
+  border-radius: 8px;
+}
+.mobile-list a:hover {
+  background: rgba(27, 94, 32, 0.1);
+  color: var(--accent);
+}
 
-  .header-nav.active {
-    display: flex;
-  }
+/* Responsive behavior */
+@media (max-width: 900px) {
+  .header-nav { display: none; }
+  .hamburger { display: block; }
+}
 
-  .header-nav-list {
-    flex-direction: column;
-    width: 100%;
-    text-align: center;
-  }
-
-  .header-nav-item {
-    margin: 1rem 0;
-  }
-
-  .hamburger {
-    display: block;
-  }
+/* Page content top padding: ensure content starts below floating bar */
+body {
+  padding-top: calc(var(--header-height) + 32px);
 }
